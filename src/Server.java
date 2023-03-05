@@ -16,8 +16,22 @@ public class Server {
                         DataOutputStream output = new DataOutputStream(socket.getOutputStream())
                 ) {
                     String msg = input.readUTF(); // прочитать сообщение от клиента
+                    String name = msg;
                     output.writeUTF("Hello, " + msg); // отправить сообщение клиенту
                     System.out.println(msg + " came to us");
+                    int count = 0;
+
+                    while (!msg.equals("bye")) {
+                        msg = input.readUTF();
+                        count++;
+                        if (!msg.equals("bye")) {
+                            output.writeUTF("#" + count + " :" + msg); // получаем ответ от сервера
+                            System.out.println("new message " + count + " :" + msg);
+                        } else {
+                            System.out.println("bye " + name);
+                        }
+                    }
+
                 }
             }
         } catch (IOException e) {

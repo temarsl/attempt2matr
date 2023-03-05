@@ -19,8 +19,19 @@ public class Client {
             String msg = scanner.nextLine(); // Вася
             output.writeUTF(msg); // отправляем сообщение на сервер
             String receivedMsg = input.readUTF(); // получаем ответ от сервера
-
             System.out.println("Received from the server: " + receivedMsg); // получено с сервера
+
+            while (!msg.equals("bye")) {
+                msg = scanner.nextLine();
+                output.writeUTF(msg); // отправляем сообщение на сервер
+                if (!msg.equals("bye")) {
+                    receivedMsg = input.readUTF(); // получаем ответ от сервера
+                    System.out.println("Received from the server: " + receivedMsg); // получено с сервера
+                }
+            }
+
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
